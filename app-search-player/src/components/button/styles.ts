@@ -18,5 +18,17 @@ export const styles = StyleSheet.create({
         fontWeight: "bold",
         color: "white",
         
-    }
+    },
+
+    CardButton: {
+        width: "50%",
+        height: 22,
+        backgroundColor: "green",
+        borderRadius: 5,
+        justifyContent: "center",
+        alignItems: "center",
+        flex: 0.1,
+    },
+
+    
 })
