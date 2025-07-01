@@ -1,56 +1,25 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image, ImageProps } from "react-native";
+import React from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { Button } from "@/components/button";
+import  Card  from "@/components/card-atleta";
 
 export default function Dashboard() {
 
-    const { nome, idade, nascimento, nacionalidade, camisa, altura, peso, posicao  } = useLocalSearchParams();
+    const { arrayPlayer } = useLocalSearchParams();
+    const arrayPlayerObj = typeof arrayPlayer === "string" ? JSON.parse(arrayPlayer) : arrayPlayer;
     return (
         <View style={styles.container}>
 
             <Text style={styles.title}> RETORNA OS JOGADORES AQUI </Text>
-            <Text> Pesquisa: { nome }</Text>
 
-            {/* CARD-ATLETA 1 */}
-            <View style={styles.card}> 
-                <Text style={styles.title}> Nome: { nome }</Text>
-                <Text style={styles.title}> Idade: { idade }</Text>
-                <Text style={styles.title}> Data de Nascimento: { nascimento }</Text>
-                <Text style={styles.title}> Nacionalidade: { nacionalidade }</Text>
-                <Text style={styles.title}> Camisa: { camisa }</Text>
-                <Text style={styles.title}> Altura: { altura }</Text>
-                <Text style={styles.title}> Peso: { peso }</Text>
-                <Text style={styles.title}> Posição: { posicao }</Text>
-                <Button title="favoritos" variant="card" />
-            </View>
-
-            
-            {/* CARD-ATLETA 2 */}
-            <View style={styles.card}> 
-                <Text style={styles.title}> Nome: { nome }</Text>
-                <Text style={styles.title}> Idade: { idade }</Text>
-                <Text style={styles.title}> Data de Nascimento: { nascimento }</Text>
-                <Text style={styles.title}> Nacionalidade: { nacionalidade }</Text>
-                <Text style={styles.title}> Camisa: { camisa }</Text>
-                <Text style={styles.title}> Altura: { altura }</Text>
-                <Text style={styles.title}> Peso: { peso }</Text>
-                <Text style={styles.title}> Posição: { posicao }</Text>
-                <Button title="favoritos" variant="card" />
-            </View>
+            {arrayPlayerObj.map((r: any) => (
+                <Card key={r.player.id} player={r.player}></Card>
+            ) )}
 
 
-            {/* CARD-ATLETA 3 */}
-            <View style={styles.card}> 
-                <Text style={styles.title}> Nome: { nome }</Text>
-                <Text style={styles.title}> Idade: { idade }</Text>
-                <Text style={styles.title}> Data de Nascimento: { nascimento }</Text>
-                <Text style={styles.title}> Nacionalidade: { nacionalidade }</Text>
-                <Text style={styles.title}> Camisa: { camisa }</Text>
-                <Text style={styles.title}> Altura: { altura }</Text>
-                <Text style={styles.title}> Peso: { peso }</Text>
-                <Text style={styles.title}> Posição: { posicao }</Text>
-                <Button title="favoritos" variant="card" />
-            </View>
+
+    
 
             <Button title="Voltar" onPress={() => router.back()}  />
         </View>

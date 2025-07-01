@@ -1,16 +1,17 @@
-import { View, ViewProps, Text, TextProps, TouchableOpacity, TouchableOpacityProps} from "react-native";
-
+import { View, ViewProps, Text, TextProps, TouchableOpacity, TouchableOpacityProps, Image, ImageProps } from "react-native";
+import React from "react";
+import { router, useLocalSearchParams } from "expo-router";
 import { styles } from "./styles";
 import { Button } from "../button";
 
 type Props = TouchableOpacityProps & ViewProps & TextProps & {
-    player: JSON,
-    onAddFavorito: () => void,
-    showAddButtons: boolean
+    onAddFavorito?: () => void,
+    showAddButtons?: boolean,
+    player : any,
     
 
 }
-export default function Card({ player, onAddFavorito, showAddButtons, ...rest }: Props) {
+export default function Card ({ player, onAddFavorito, showAddButtons, ...rest }: Props) {
     
     const birth = player.birth;
     let datePlace;
@@ -32,21 +33,17 @@ export default function Card({ player, onAddFavorito, showAddButtons, ...rest }:
 
 
     return (
-        <View style={styles.card} id={`card${player.id}`}>
-            <img src={player.photo} alt={player.name} />
-
-            <View style={styles.col}>
-                <p>Nome: {player.name}</p>
-                <p>Idade: {player.age}</p>
-                <p>Data de Nascimento: {datePlace}</p>
-                <p>Nacionalidade: {player.nationality ?? "desconhecido"}</p>
-                {player.number && <p>Camisa: {player.number}</p>}
-                {player.height && <p>Altura: {player.height}</p>}
-                {player.weight && <p>Peso: {player.weight}</p>}
-                {player.position && <p>Posição: {player.position}</p>}
-            </View>
-           
+        <View style={styles.card}> 
+            <Image source={{uri: player.photo}} style={{ width: 100, height: 100, borderRadius: 50, marginBottom: 8 }}/>
+            <Text style={styles.title}> Nome: { player.name }</Text>
+            <Text style={styles.title}> Idade: { player.age }</Text>
+            <Text style={styles.title}> Data de Nascimento: { datePlace }</Text>
+            <Text style={styles.title}> Nacionalidade: { player.nationality ?? "desconhecido" }</Text>
+            <Text style={styles.title}> Camisa: { player.number }</Text>
+            <Text style={styles.title}> Altura: { player.height }</Text>
+            <Text style={styles.title}> Peso: { player.weight }</Text>
+            <Text style={styles.title}> Posição: { player.position }</Text>
+            <Button title="favoritos" variant="card" />
         </View>   
     )
 }
-

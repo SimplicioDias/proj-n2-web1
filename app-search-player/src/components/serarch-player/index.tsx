@@ -6,7 +6,7 @@ import { Input } from "../input";
 import { Button } from "../button"
 
 type Props = {
-    onSearch: () => void;
+    onSearch: () => any; // router-naviagte
 }
 
 export default function SearchPlayer({onSearch}: Props) {
@@ -18,6 +18,8 @@ export default function SearchPlayer({onSearch}: Props) {
             onSearch(namePlayer);
         }
     }
+
+    
 
     return (
         <form onSubmit={handleSubmit} style={styles.searchForm}>

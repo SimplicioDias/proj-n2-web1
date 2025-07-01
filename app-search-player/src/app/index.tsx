@@ -25,7 +25,7 @@ export default function Index() {
         },
     };
     
-    const handleSearch = async (namePlayer) => {
+    const handleSearch = async (namePlayer : any) => {
         try {
             const response = await fetch(
                 `https://api-football-v1.p.rapidapi.com/v3/players/profiles?search=${namePlayer}`,
@@ -40,12 +40,15 @@ export default function Index() {
             const result = await response.json();
             setResult(result);
 
-            const player = result.response[0]?.player;
+            const arrayPlayer = result.response;
+            console.log(arrayPlayer)
 
-            if (player) {
+            if (arrayPlayer) {
                 router.navigate({
                     pathname: "/dashboard",
                     params: {
+                        arrayPlayer: JSON.stringify(arrayPlayer),
+                        /* imagem: player.photo,
                         nome: player.name,
                         idade: player.age,
                         nascimento: player.birth?.date,
@@ -53,7 +56,7 @@ export default function Index() {
                         camisa: player.number,
                         altura: player.height,
                         peso: player.weight,
-                        posicao: player.position,
+                        posicao: player.position, */
                     }
                 });
             } else {
@@ -85,8 +88,11 @@ export default function Index() {
     }
 
     return (
+
+        // SearchPlayer da N1 
         <View style={styles.mainContainer}>
-            <Text style={styles.title}> Digite o nome do jogador: </Text>
+            <Text style={{fontSize: 35, color: "black", fontWeight:"bold"}}>Pesquisa de Atletas</Text>
+            <Text style={styles.title}> Digite o nome: </Text>
             <Input onChangeText={(response) => setResponse(response)} id="name"></Input>
             <Button title="Pesquisar" onPress={() => handleSearch(response)}></Button>
 
