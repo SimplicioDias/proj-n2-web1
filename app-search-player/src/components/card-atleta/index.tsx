@@ -11,7 +11,7 @@ type Props = TouchableOpacityProps & ViewProps & TextProps & {
     
 
 }
-export default function Card ({ player, onAddFavorito, showAddButtons, ...rest }: Props) {
+export default function Card ({ player, showAddButtons, ...rest }: Props) {
     
     const birth = player.birth;
     let datePlace;
@@ -30,6 +30,10 @@ export default function Card ({ player, onAddFavorito, showAddButtons, ...rest }
         datePlace = "Desconhecido";
       }
 
+    function onAddFavorito() {
+        const id = player.id
+        
+    }
 
 
     return (
@@ -43,7 +47,7 @@ export default function Card ({ player, onAddFavorito, showAddButtons, ...rest }
             <Text style={styles.title}> Altura: { player.height }</Text>
             <Text style={styles.title}> Peso: { player.weight }</Text>
             <Text style={styles.title}> Posição: { player.position }</Text>
-            <Button title="favoritos" variant="card" />
+            <Button title="favoritos" variant="card" onPress={onAddFavorito}/>
         </View>   
     )
 }

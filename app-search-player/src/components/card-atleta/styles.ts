@@ -3,14 +3,15 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     card: {
-        flex: 0.5,
         borderWidth: 2,
-        width: "100%",
+        width: "90%", //ou alignSelf : "stretch"
         borderRadius: 10,
         justifyContent: "center",
         alignItems: "center",
         padding: 10,
-        gap: 6,
+        marginVertical: 8,
+        backgroundColor: "#0012",
+
     },
 
     col: {

@@ -43,20 +43,11 @@ export default function Index() {
             const arrayPlayer = result.response;
             console.log(arrayPlayer)
 
-            if (arrayPlayer) {
+            if (arrayPlayer.length > 0) {
                 router.navigate({
                     pathname: "/dashboard",
                     params: {
                         arrayPlayer: JSON.stringify(arrayPlayer),
-                        /* imagem: player.photo,
-                        nome: player.name,
-                        idade: player.age,
-                        nascimento: player.birth?.date,
-                        nacionalidade: player.nationality,
-                        camisa: player.number,
-                        altura: player.height,
-                        peso: player.weight,
-                        posicao: player.position, */
                     }
                 });
             } else {
@@ -66,25 +57,6 @@ export default function Index() {
             Alert.alert("Erro", "Ocorreu um erro ao buscar o jogador");
         }
 
-    }
-
-    function handleNext() {
-        console.log(response)
-        router.navigate({
-            pathname: "/dashboard",
-            params: {
-                nome: response, //response.name
-                idade: 25, //response.age
-                nascimento: "25/08/2000", //response.birth
-                nacionalidade: "Brazil", // etc
-                camisa: "10",
-                altura: "167",
-                peso: "70",
-                posicao: "ATA",
-
-
-            }
-        })
     }
 
     return (
@@ -117,20 +89,4 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         gap:16,
     },
-
-    headerSection: {
-        
-    },
-
-    seachSection: {
-        height: 20,
-        borderRadius: 2,
-        width: 20,
-    },
-
-    contentSection: {
-
-},
-    
-
 })

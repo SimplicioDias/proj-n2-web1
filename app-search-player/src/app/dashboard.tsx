@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, ImageProps } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import React from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { Button } from "@/components/button";
@@ -11,16 +11,15 @@ export default function Dashboard() {
     return (
         <View style={styles.container}>
 
-            <Text style={styles.title}> RETORNA OS JOGADORES AQUI </Text>
+            {/* <Text style={styles.title}> RETORNA OS JOGADORES AQUI </Text> */}
 
-            {arrayPlayerObj.map((r: any) => (
+            <ScrollView contentContainerStyle={{ alignItems: "center", paddingBottom: 32 }}>
+                {arrayPlayerObj.map((r: any) => (
                 <Card key={r.player.id} player={r.player}></Card>
-            ) )}
-
-
-
+                    ))}
+        
+            </ScrollView>
     
-
             <Button title="Voltar" onPress={() => router.back()}  />
         </View>
     )
@@ -33,17 +32,6 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         padding: 32,
         gap: 16,
-    },
-
-    card: {
-        flex: 0.5,
-        borderWidth: 2,
-        width: "100%",
-        borderRadius: 10,
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 10,
-        gap: 6,
     },
 
     title: {
