@@ -1,20 +1,17 @@
 
 import { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Alert } from 'react-native';
-
 import { router } from "expo-router";
-
 import { Button } from '@/components/button';
 import { Input } from '@/components/input';
-import  Card  from '@/components/card-atleta';
-import  SearchPlayer  from '@/components/serarch-player';
-import Favoritos from '@/components/card-favoritos';
+import { useFavoritos } from '@/contexts/FavoritosContext';
 
 
   
-export default function Index() {
+function IndexContent() {
     const [response, setResponse] = useState("")
     const [result, setResult] = useState("");
+    const { favoritos } = useFavoritos();
 
 
     const options = {
@@ -67,8 +64,14 @@ export default function Index() {
             <Text style={styles.title}> Digite o nome: </Text>
             <Input onChangeText={(response) => setResponse(response)} id="name"></Input>
             <Button title="Pesquisar" onPress={() => handleSearch(response)}></Button>
-
-
+            
+            <View style={styles.favoritosContainer}>
+                <Button 
+                    title={`Ver Favoritos (${favoritos.length})`} 
+                    onPress={() => router.push("/favoritos")}
+                    style={styles.favoritosButton}
+                />
+            </View>
         </View>
     );
     
@@ -89,4 +92,16 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         gap:16,
     },
+    
+    favoritosContainer: {
+        marginTop: 16,
+    },
+    
+    favoritosButton: {
+        backgroundColor: '#4CAF50',
+    },
 })
+
+export default function Index() {
+    return <IndexContent />;
+}

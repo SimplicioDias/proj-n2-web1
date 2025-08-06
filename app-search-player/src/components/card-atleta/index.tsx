@@ -1,17 +1,15 @@
-import { View, ViewProps, Text, TextProps, TouchableOpacity, TouchableOpacityProps, Image, ImageProps } from "react-native";
-import React from "react";
+import { View, Text, Image, Alert } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { styles } from "./styles";
 import { Button } from "../button";
+import { useFavoritos } from "@/contexts/FavoritosContext";
 
-type Props = TouchableOpacityProps & ViewProps & TextProps & {
-    onAddFavorito?: () => void,
+type Props = {
+    player: any,
     showAddButtons?: boolean,
-    player : any,
-    
-
 }
-export default function Card ({ player, showAddButtons, ...rest }: Props) {
+export default function Card ({ player, showAddButtons }: Props) {
+    const { addFavorito, removeFavorito, isFavorito } = useFavoritos();
     
     const birth = player.birth;
     let datePlace;
@@ -30,9 +28,18 @@ export default function Card ({ player, showAddButtons, ...rest }: Props) {
         datePlace = "Desconhecido";
       }
 
-    function onAddFavorito() {
-        const id = player.id
-        
+    async function onAddFavorito() {
+        try {
+            if (isFavorito(player.id)) {
+                await removeFavorito(player.id);
+                Alert.alert("Sucesso", "Jogador removido dos favoritos!");
+            } else {
+                await addFavorito(player);
+                Alert.alert("Sucesso", "Jogador adicionado aos favoritos!");
+            }
+        } catch (error) {
+            Alert.alert("Erro", "Erro ao gerenciar favoritos");
+        }
     }
 
 
@@ -47,7 +54,11 @@ export default function Card ({ player, showAddButtons, ...rest }: Props) {
             <Text style={styles.title}> Altura: { player.height }</Text>
             <Text style={styles.title}> Peso: { player.weight }</Text>
             <Text style={styles.title}> Posição: { player.position }</Text>
-            <Button title="favoritos" variant="card" onPress={onAddFavorito}/>
+            <Button 
+                title={isFavorito(player.id) ? "Remover dos Favoritos" : "Adicionar aos Favoritos"} 
+                variant="card" 
+                onPress={onAddFavorito}
+            />
         </View>   
     )
 }

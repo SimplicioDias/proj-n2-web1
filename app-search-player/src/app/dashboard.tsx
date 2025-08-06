@@ -1,17 +1,16 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import React from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { Button } from "@/components/button";
 import  Card  from "@/components/card-atleta";
 
-export default function Dashboard() {
 
+function DashboardContent() {
     const { arrayPlayer } = useLocalSearchParams();
     const arrayPlayerObj = typeof arrayPlayer === "string" ? JSON.parse(arrayPlayer) : arrayPlayer;
+    
     return (
         <View style={styles.container}>
-
-            {/* <Text style={styles.title}> RETORNA OS JOGADORES AQUI </Text> */}
+            <Text style={styles.title}>Resultados da Pesquisa</Text>
 
             <ScrollView contentContainerStyle={{ alignItems: "center", paddingBottom: 32 }}>
                 {arrayPlayerObj.map((r: any) => (
@@ -23,6 +22,10 @@ export default function Dashboard() {
             <Button title="Voltar" onPress={() => router.back()}  />
         </View>
     )
+}
+
+export default function Dashboard() {
+    return <DashboardContent />;
 }
 
 export const styles = StyleSheet.create({
