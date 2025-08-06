@@ -30,10 +30,7 @@ export default function Card ({ player, showAddButtons }: Props) {
 
     async function onAddFavorito() {
         try {
-            if (isFavorito(player.id)) {
-                await removeFavorito(player.id);
-                Alert.alert("Sucesso", "Jogador removido dos favoritos!");
-            } else {
+            if (!isFavorito(player.id)) {
                 await addFavorito(player);
                 Alert.alert("Sucesso", "Jogador adicionado aos favoritos!");
             }
@@ -54,11 +51,13 @@ export default function Card ({ player, showAddButtons }: Props) {
             <Text style={styles.title}> Altura: { player.height }</Text>
             <Text style={styles.title}> Peso: { player.weight }</Text>
             <Text style={styles.title}> Posição: { player.position }</Text>
-            <Button 
-                title={isFavorito(player.id) ? "Remover dos Favoritos" : "Adicionar aos Favoritos"} 
-                variant="card" 
-                onPress={onAddFavorito}
-            />
+            {!isFavorito(player.id) && (
+                <Button 
+                    title="Adicionar aos Favoritos"
+                    variant="card" 
+                    onPress={onAddFavorito}
+                />
+            )}
         </View>   
     )
 }
