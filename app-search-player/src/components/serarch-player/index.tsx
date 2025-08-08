@@ -6,26 +6,31 @@ import { Input } from "../input";
 import { Button } from "../button"
 
 type Props = {
-    onSearch: () => any; // router-naviagte
+    onSearch: (playerName: string) => any; // router-navigate
 }
 
 export default function SearchPlayer({onSearch}: Props) {
     const [namePlayer, setNamePlayer] = useState("");
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         if (namePlayer.trim()) {
             onSearch(namePlayer);
         }
     }
 
-    
-
     return (
-        <form onSubmit={handleSubmit} style={styles.searchForm}>
-            <Input style={styles.searchInput} onChangeText={(text) => setNamePlayer(text)}></Input>
-            <Button title="Buscar"></Button>
-        </form>
+        <View style={styles.searchForm}>
+            <Input 
+                style={styles.searchInput} 
+                value={namePlayer}
+                onChangeText={(text) => setNamePlayer(text)}
+                placeholder="Digite o nome do jogador"
+            />
+            <Button 
+                title="Buscar" 
+                onPress={handleSubmit}
+            />
+        </View>
     )
     
         
